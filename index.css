@@ -1,0 +1,122 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+/* Adding stocks */
+#add-stock {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  #stock-input {
+    flex: 1;
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  #add-stock-button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  #add-stock-button:hover {
+    background-color: #0056b3;
+  }
+/* Wrapper for the entire page */
+#main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+/* Main container holding watchlist and chat */
+#main-container {
+    display: flex;
+    flex: 1; /* Stretch to take up all available height */
+}
+
+/* Watchlist Container */
+#watchlist-container {
+    width: 200px;
+    background-color: #f7f7f7;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+
+#toggle-watchlist {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#watchlist {
+    list-style: none;
+    padding: 0;
+    display: none; /* Initially hidden */
+    display: nne; /* Initially hidden */
+    width: 100%;
+}
+
+#watchlist {
+    list-style: none;
+    padding: 0;
+    display: none; /* Initially hidden */
+    display: nne; /* Initially hidden */
+    width: 100%;
+}
+
+#watchlist.show {
+    display: block; /* Ensures the list is shown */
+    max-height: 300px; /* Adjust based on your list's height */
+    opacity: 1;
+}
+
+#watchlist li {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#watchlist li:hover {
+    background-color: #f0f2f5;
+}
+
+#stock-1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+#stock-symbol {
+    font-weight: bold;
+}
+
+#stock-price {
+    font-size: 1.2rem;
+    color: green;
+}
+

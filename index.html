@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Madalin</title>
+    <link rel="shortcut icon" href="#">
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="index.css" />
+    
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> -->
+
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDIrh1zkGtxHdAoVP0Mlelt5aIzzxUxlbg",
+        authDomain: "tracking-tradings-727aa.firebaseapp.com",
+        projectId: "tracking-tradings-727aa",
+        storageBucket: "tracking-tradings-727aa.firebasestorage.app",
+        messagingSenderId: "747058800250",
+        appId: "1:747058800250:web:e4eec0ce768a7166ca7dc3",
+        measurementId: "G-J3QBWDSNQ5"
+        };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+      var storage = firebase.storage();
+    </script>
+  </head>
+  <body>
+    <h1>Madalinul e cel mai tare</h1>
+    <div id="main-wrapper">
+      <div id="main-container">
+        <!-- Watchlist Container -->
+          <div id="watchlist-container">
+            <div id="watchlist-header">
+              <span>Watchlist</span>
+              <button id="toggle-watchlist">⬇️</button>
+            </div>
+            <ul id="watchlist">
+              <li>
+                <span class="stock-symbol">MSFT</span> -
+                <span class="stock-price">?</span>
+              </li>
+              <li>
+                <span class="stock-symbol">TSLA</span> -
+                <span class="stock-price">?</span>
+              </li>
+            </ul>
+              <!-- Add Stock Section -->
+              <div id="add-stock">
+                <input
+                  type="text"
+                  id="stock-input"
+                  placeholder="Enter Stock Symbol"
+                />
+                <button id="add-stock-button">+</button>
+              </div>
+          </div>
+      </div>
+    </div>
+    <script src="watchlist.js"></script>
+  </body>
