@@ -188,4 +188,3 @@ $(document).ready(function () {
     getDataFromStorage(symbol, result);
   });
 });
-
