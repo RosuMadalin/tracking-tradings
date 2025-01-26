@@ -66,18 +66,61 @@ if (existingSymbols.includes(symbol)) {
 saveSymbolToFirestore(symbol);
 });
 
-// Save stock symbol to Firestore
-function saveSymbolToFirestore(symbol) {
-  db.collection("watchlist")
-    .doc(symbol) // Use the symbol as the document ID for simplicity
-    .set({ timestamp: new Date() })
-    .then(() => {
-      console.log(`Stock symbol ${symbol} saved to Firestore.`);
-      addStockToWatchlist(symbol); // Add to UI
-    })
-    .catch((error) => {
-      console.error("Error saving stock symbol to Firestore:", error);
-    });
+// Validate the stock symbol before saving
+async function saveSymbolToFirestore(symbol) {
+  try {
+    const isValid = await validateStockSymbol(symbol);
+
+    if (!isValid) {
+      alert("Invalid stock symbol. Please enter a correct stock symbol.");
+      return;
+    }
+
+    db.collection("watchlist")
+      .doc(symbol) // Use the symbol as the document ID for simplicity
+      .set({ timestamp: new Date() })
+      .then(() => {
+        console.log(`Stock symbol ${symbol} saved to Firestore.`);
+        addStockToWatchlist(symbol); // Add to UI
+      })
+      .catch((error) => {
+        console.error("Error saving stock symbol to Firestore:", error);
+      });
+  } catch (error) {
+    console.log("Error validating stock symbol:", error);
+  }
+}
+
+// Validate stock symbol using RapidAPI
+async function validateStockSymbol(symbol) {
+  const url = `https://yahoo-finance166.p.rapidapi.com/api/stock/get-price?region=US&symbol=${symbol}`;
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038",
+      "x-rapidapi-host": "yahoo-finance166.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+
+    // Check if the response is successful
+    if (!response.ok) {
+      console.error(`API Error: ${response.status}`);
+      return false;
+    }
+
+    const data = await response.json();
+
+    // Check if the API returned a valid result
+    const price = data?.quoteSummary?.result?.[0]?.price?.regularMarketPrice?.raw;
+    return price !== undefined; // Return true if the price exists
+  } catch (error) {
+    console.error("Error validating stock symbol:", error);
+    return false;
+  }
 }
 
 // Load watchlist from Firestore
@@ -109,12 +152,33 @@ function addStockToWatchlist(symbol) {
   listItem.innerHTML = `
     <span class="stock-symbol">${symbol}</span> -
     <span class="stock-price">Loading...</span>
+    <button class="delete-button" data-symbol="${symbol}">❌</button>
   `;
 
   watchlist.appendChild(listItem);
 
+  // Attach event listener for delete button
+  listItem.querySelector(".delete-button").addEventListener("click", (e) => {
+    const stockSymbol = e.target.getAttribute("data-symbol");
+    deleteStockFromFirestore(stockSymbol); // Delete from Firestore
+    listItem.remove(); // Remove from UI
+  });
+
   const stockPriceElement = listItem.querySelector(".stock-price");
   getDataFromStorage(symbol, stockPriceElement);
+}
+
+// Function to delete a stock from Firestore
+function deleteStockFromFirestore(symbol) {
+  db.collection("watchlist")
+    .doc(symbol)
+    .delete()
+    .then(() => {
+      console.log(`Stock symbol ${symbol} deleted from Firestore.`);
+    })
+    .catch((error) => {
+      console.error("Error deleting stock symbol from Firestore:", error);
+    });
 }
 
 // Fetch stock price using Firestore or API
