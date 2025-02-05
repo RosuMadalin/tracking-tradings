@@ -39,9 +39,22 @@
   </head>
   <body>
     <h1>Madalinul este cel mai tare</h1>
-    <div id="main-wrapper">
-      <div id="main-container">
-        <!-- Watchlist Container -->
+
+    <nav id ="navbar">
+      <ul>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Charts</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Wallet</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main layout with 3 columns -->
+    <div id="main-layout">
+       <!-- Left Column (Watchlist) -->
+       <div id="left-column">
+          <!-- Watchlist Container -->
           <div id="watchlist-container">
             <div id="watchlist-header">
               <span>Watchlist</span>
@@ -57,17 +70,34 @@
                 <span class="stock-price">?</span>
               </li>
             </ul>
-              <!-- Add Stock Section -->
-              <div id="add-stock">
-                <input
-                  type="text"
-                  id="stock-input"
-                  placeholder="Enter Stock Symbol"
+            <!-- Add Stock Section -->
+            <div id="add-stock">
+              <input
+                type="text"
+                id="stock-input"
+                placeholder="Enter Stock Symbol"
                 />
-                <button id="add-stock-button">+</button>
-              </div>
+              <button id="add-stock-button">+</button>
+            </div>
           </div>
+       </div>
+
+       <!-- Center Column (Main Content) -->
+       <div id="center-column">
+        <div id="portfolio-container">
+          <h2>Main Content Here</h2>
+          <p>This section will hold the main trading graphs, statistics, or any additional widgets.</p>
+          <div id="news-container"></div>
+        </div>
       </div>
+
+       <!-- Right Column (Extra Space / Future Features) -->
+       <div id="right-column">
+        <h2>Right Sidebar</h2>
+        <p>This space can be used for news, widgets, or anything else.</p>
+       </div>
     </div>
     <script src="watchlist.js"></script>
+    <script src="portfolio.js"></script>
+    <script src="index.js"></script>
   </body>

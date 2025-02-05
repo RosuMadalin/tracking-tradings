@@ -164,8 +164,12 @@ function addStockToWatchlist(symbol) {
     listItem.remove(); // Remove from UI
   });
 
-  const stockPriceElement = listItem.querySelector(".stock-price");
-  getDataFromStorage(symbol, stockPriceElement);
+  // Fetch stock news and display in the center column
+  const newsContainer = document.createElement('div');
+  newsContainer.setAttribute('id', `${symbol}-news`);
+  document.getElementById('news-container').appendChild(newsContainer);
+
+  getDataFromStorage(symbol);
 }
 
 // Function to delete a stock from Firestore
@@ -201,10 +205,10 @@ function getDataFromStorage(symbol, result) {
           var price = item.price;
           
           // Check if the data is older than 1 hour
-          if (new Date() - timestamp > 60 * 60 * 1000) {
+          if (new Date() - timestamp > 90 * 60 * 1000) {
             // Data is older than 1 hour, fetch fresh data from RapidAPI
             fetchStockPrice(symbol, result);
-            console.log("Data is older than 60 minutes, fetching from RapidAPI...");
+            console.log("Data is older than 90 minutes, fetching from RapidAPI...");
           } else {
             // Data is less than 1 hour old, display it
             $(result).text(price + " $");
