@@ -10,24 +10,17 @@ window.onload = () => {
   loadWatchlistFromFirestore();
 };
 
-// Add click event listener to the toggle button
+// Toggle watchlist visibility
 toggleButton.addEventListener("click", () => {
-  // Check the current display state of the watchlist
-  if (watchlist.style.display === "none" || !watchlist.style.display) {
-    // If hidden or no display style is set, show the watchlist
-    watchlist.style.display = "block";
-    toggleButton.textContent = "⬆️"; // Change the arrow to point upwards
-  } else {
-    // Otherwise, hide the watchlist
-    watchlist.style.display = "none";
-    toggleButton.textContent = "⬇️"; // Change the arrow to point downwards
-  }
-}); 
+  watchlist.style.display = watchlist.style.display === "none" ? "block" : "none";
+  toggleButton.textContent = watchlist.style.display === "block" ? "⬆️" : "⬇️";
+});
 
 // Add stocks data from Firebase
 function addStockData(symbol, price) {
   db.collection("stock_data")
-    .add({
+  .doc(symbol) // Use the symbol as the document ID to prevent duplicates
+  .set({  // 'set' will overwrite existing document instead of creating a new one
       symbol: symbol,
       price: price,
       timestamp: new Date(),
@@ -43,14 +36,8 @@ function addStockData(symbol, price) {
 // Add a new stock dynamically to the watchlist
 addStockButton.addEventListener("click", () => {
   const symbol = stockInput.value.trim().toUpperCase();
-
-  if (!symbol) {
-    alert("Please enter a stock symbol.");
-    return;
-  }
-
-  // Clear the input
-  stockInput.value = "";
+  if (!symbol) return alert("Please enter a stock symbol.");
+  stockInput.value = ""; // Clear input
 
  // Check if the stock symbol already exists in the watchlist
  const existingSymbols = Array.from(
@@ -61,7 +48,6 @@ if (existingSymbols.includes(symbol)) {
   alert("Stock symbol already exists in the watchlist.");
   return;
 }
-
 // Save to Firestore and add to UI
 saveSymbolToFirestore(symbol);
 });
@@ -70,7 +56,6 @@ saveSymbolToFirestore(symbol);
 async function saveSymbolToFirestore(symbol) {
   try {
     const isValid = await validateStockSymbol(symbol);
-
     if (!isValid) {
       alert("Invalid stock symbol. Please enter a correct stock symbol.");
       return;
@@ -94,7 +79,6 @@ async function saveSymbolToFirestore(symbol) {
 // Validate stock symbol using RapidAPI
 async function validateStockSymbol(symbol) {
   const url = `https://yahoo-finance166.p.rapidapi.com/api/stock/get-price?region=US&symbol=${symbol}`;
-
   const options = {
     method: "GET",
     headers: {
@@ -105,7 +89,6 @@ async function validateStockSymbol(symbol) {
 
   try {
     const response = await fetch(url, options);
-
     // Check if the response is successful
     if (!response.ok) {
       console.error(`API Error: ${response.status}`);
@@ -163,13 +146,9 @@ function addStockToWatchlist(symbol) {
     deleteStockFromFirestore(stockSymbol); // Delete from Firestore
     listItem.remove(); // Remove from UI
   });
-
-  // Fetch stock news and display in the center column
-  const newsContainer = document.createElement('div');
-  newsContainer.setAttribute('id', `${symbol}-news`);
-  document.getElementById('news-container').appendChild(newsContainer);
-
-  getDataFromStorage(symbol);
+  
+  const stockPriceElement = listItem.querySelector(".stock-price");
+  getDataFromStorage(symbol, stockPriceElement);
 }
 
 // Function to delete a stock from Firestore
@@ -205,7 +184,7 @@ function getDataFromStorage(symbol, result) {
           var price = item.price;
           
           // Check if the data is older than 1 hour
-          if (new Date() - timestamp > 90 * 60 * 1000) {
+          if (new Date() - timestamp > 60 * 60 * 1000) {
             // Data is older than 1 hour, fetch fresh data from RapidAPI
             fetchStockPrice(symbol, result);
             console.log("Data is older than 90 minutes, fetching from RapidAPI...");
@@ -248,11 +227,11 @@ async function fetchStockPrice(symbol, result) {
   }
 } // end fetchStockPrice(symbol)
 
-$(document).ready(function () {
-  $("#watchlist .stock-symbol").each(function () {
-    const symbol = $(this).text();
-    const result = $(this).parent().find(".stock-price");
-    console.log("running for: " + symbol);
-    getDataFromStorage(symbol, result);
-  });
-});
+// $(document).ready(function () {
+//   $("#watchlist .stock-symbol").each(function () {
+//     const symbol = $(this).text();
+//     const result = $(this).parent().find(".stock-price");
+//     console.log("running for: " + symbol);
+//     getDataFromStorage(symbol, result);
+//   });
+// });

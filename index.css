@@ -49,7 +49,7 @@ body {
 
 /* Left Column */
 #left-column {
-    flex: 1 1 23%;
+    flex: 1 1 20%;
     min-width: 200px;
     background-color: #f7f7f7;
     border-right: 1px solid #ddd;
@@ -148,15 +148,15 @@ body {
 
 /* Center Column */
 #center-column {
-    flex: 2 1 52%;
-    min-width: 300px;
+    flex: 2 1 60%;
+    min-width: 400px;
     padding: 20px;
 }
 
 /* Right Column */
 #right-column {
-    flex: 1 1 23%;
-    min-width: 200px;
+    flex: 1 1 18%;
+    min-width: 150px;
     padding: 20px;
     background-color: #e9ecef;
     border-left: 1px solid #ddd;
