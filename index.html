@@ -19,6 +19,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> -->
 
+    <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+
     <script>
       // Your web app's Firebase configuration
       const firebaseConfig = {
@@ -42,11 +44,12 @@
 
     <nav id ="navbar">
       <ul>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Charts</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Wallet</a></li>
-        <li><a href="#">Settings</a></li>
+        <li><a id="home-btn" href="#">HOME</a></li>
+        <li><a id="portfolio-btn" href="#">Portfolio</a></li>
+        <li><a id="charts-btn" href="#">Charts</a></li>
+        <li><a id="news-btn" href="#">News</a></li>
+        <li><a id="wallet-btn" href="#">Wallet</a></li>
+        <li><a id="settings-btn" href="#">Settings</a></li>
       </ul>
     </nav>
 
@@ -90,6 +93,9 @@
           <p>This section will hold the main trading graphs, statistics, or any additional widgets.</p>
           <div id="news-container"></div>
         </div>
+        <div id="charts-container" style="width: 100%; height: auto;">
+          <h2>Charts Here</h2>
+        </div>
       </div>
 
        <!-- Right Column (Extra Space / Future Features) -->
@@ -101,4 +107,7 @@
     <script src="watchlist.js"></script>
     <script src="portfolio.js"></script>
     <script src="index.js"></script>
+    <script src="charts.js"></script>
+    <script src="navbar.js"></script>
+
   </body>

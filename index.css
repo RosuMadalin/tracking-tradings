@@ -37,6 +37,10 @@ body {
     background: #555;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /* Wrapper for the entire page */
 #main-layout {
     display: flex;
@@ -122,15 +126,15 @@ body {
     align-items: center;
 }
   
-  #stock-input {
+#stock-input {
     width: 100%;
     padding: 10px 40px 10px 10px;
     font-size: 0.9rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-  }
+}
   
-  #add-stock-button {
+#add-stock-button {
     position: absolute;
     padding: 5px 10px;
     font-size: 1rem;
@@ -140,11 +144,11 @@ body {
     color: white;
     border: none;
     border-radius: 3px;
-  }
+}
   
-  #add-stock-button:hover {
+#add-stock-button:hover {
     background-color: #0056b3;
-  }
+}
 
 /* Center Column */
 #center-column {
@@ -161,3 +165,14 @@ body {
     background-color: #e9ecef;
     border-left: 1px solid #ddd;
 }
+
+/* CHARTS CONTAINER */
+
+#charts-container {
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
