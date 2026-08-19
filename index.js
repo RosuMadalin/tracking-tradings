@@ -1,5 +1,3 @@
-// INDEX.JS
-
 document.addEventListener("DOMContentLoaded", function () {
     fetchWatchlistSymbols(); // Fetch stock symbols first, then fetch news
   });
@@ -24,9 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
   
-      // Stocăm simbolurile în localStorage
-      localStorage.setItem("watchlistSymbols", JSON.stringify(symbols));
-
       // Join symbols into a comma-separated string for API
       const symbolQuery = symbols.join("%2C");
       fetchStockMarketNews(symbolQuery);
@@ -35,10 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  // FETCH NEWS
-  async function fetchStockMarketNews(symbolQuery, range = "1d") {
-    const apiKey = 'e960172fe6mshf730d03cde873bap107f3ejsn71fcee0222d5';  // Replace with your actual RapidAPI key
-    const url = `https://yahoo-finance166.p.rapidapi.com/api/news/list-by-symbol?s=${symbolQuery}&region=US&snippetCount=500`;  
+  async function fetchStockMarketNews(symbolQuery) {
+    const apiKey = '8f461caa94mshd535b0ab8ca78adp10e742jsn92a44733b8d2';  // Replace with your actual RapidAPI key
+    const url = `https://yahoo-finance166.p.rapidapi.com/api/news/list-by-symbol?s=${symbolQuery}&region=US&snippetCount=500`;
+  
     // Check if news data exists in localStorage
     const cachedNews = localStorage.getItem("stockNews");
     const now = new Date().getTime();
@@ -47,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const { data, timestamp, cachedSymbols } = JSON.parse(cachedNews);
   
       // If data is less than 3 hour old and the symbols match, use it
-      if (now - timestamp < 20 * 60 * 60 * 1000 && JSON.stringify(cachedSymbols) === JSON.stringify(symbolQuery)) { 
+      if (now - timestamp < 180 * 60 * 1000 && JSON.stringify(cachedSymbols) === JSON.stringify(symbolQuery)) { 
         console.log("Loaded news from cache");
         displayNews(data);
         return;
@@ -87,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  // DISPLAY NEWS
   function displayNews(newsData) {
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML = ''; // Clear previous content
@@ -117,49 +111,3 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error('No valid news data to display');
     }
   }
-
-// ============================
-// CHARTS BUTTON CLICK
-// ============================
-document.getElementById("charts-btn").addEventListener("click", () => {
-    // Ascunde news
-    document.getElementById("news-container").innerHTML = "";
-
-    // Arătăm charts și selector
-    document.getElementById("charts-container").style.display = "block";
-    document.getElementById("range-selector").style.display = "block";
-
-    // Refresh charts
-    refreshCharts("1wk");
-});
-
-// // HOME BUTTON - optimizat
-// document.getElementById("home-btn").addEventListener("click", () => {
-//     // Ascunde charts și range selector
-//     document.getElementById("charts-container").style.display = "none";
-//     document.getElementById("range-selector").style.display = "none";
-
-//     // Afișează news
-//     const storedSymbols = JSON.parse(localStorage.getItem("watchlistSymbols") || "[]");
-//     if (storedSymbols.length > 0) {
-//         const symbolQuery = storedSymbols.join("%2C");
-
-//         // Verificăm cache
-//         const cachedNews = localStorage.getItem("stockNews");
-//         if (cachedNews) {
-//             const { data, cachedSymbols } = JSON.parse(cachedNews);
-
-//             if (JSON.stringify(cachedSymbols) === JSON.stringify(symbolQuery)) {
-//                 console.log("Displaying news from cache on HOME click");
-//                 displayNews(data);
-//                 return;
-//             }
-//         }
-
-//         // Dacă nu există cache sau simbolurile s-au schimbat, facem fetch
-//         fetchStockMarketNews(symbolQuery);
-//     } else {
-//         fetchWatchlistSymbols();
-//     }
-// });
-
