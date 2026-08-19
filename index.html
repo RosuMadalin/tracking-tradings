@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,7 +47,7 @@
       <ul>
         <li><a id="home-btn" href="#">HOME</a></li>
         <li><a id="portfolio-btn" href="#">Portfolio</a></li>
-        <li><a id="charts-btn" href="#">Charts</a></li>
+        <li><button id="charts-btn">Charts</button></li>        
         <li><a id="news-btn" href="#">News</a></li>
         <li><a id="wallet-btn" href="#">Wallet</a></li>
         <li><a id="settings-btn" href="#">Settings</a></li>
@@ -87,11 +88,24 @@
        </div>
 
        <!-- Center Column (Main Content) -->
-       <div id="center-column">
+      <div id="center-column">
         <div id="portfolio-container">
-          <h2>Main Content Here</h2>
-          <p>This section will hold the main trading graphs, statistics, or any additional widgets.</p>
-          <div id="news-container"></div>
+          <h2>Portfolio / Main Content</h2>
+          <p>Statistics, charts, or widgets go here.</p>
+        </div>
+
+        <div id="news-container"></div>
+
+        <div id="range-selector" style="margin-bottom: 15px;">
+            <label for="chart-range">Select range: </label>
+            <select id="chart-range">
+                <option value="1d">1D</option>
+                <option value="5d">5D</option>
+                <option value="1mo">1M</option>
+                <option value="6mo">6M</option>
+                <option value="1y">1Y</option>
+                <option value="1wk" selected>1W</option>
+            </select>
         </div>
         <div id="charts-container" style="width: 100%; height: auto;">
           <h2>Charts Here</h2>
@@ -105,9 +119,9 @@
        </div>
     </div>
     <script src="watchlist.js"></script>
+    <script src="charts.js"></script>
     <script src="portfolio.js"></script>
     <script src="index.js"></script>
-    <script src="charts.js"></script>
     <script src="navbar.js"></script>
 
   </body>
