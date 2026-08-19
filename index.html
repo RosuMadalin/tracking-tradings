@@ -1,69 +1,71 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Madalin</title>
+    <link rel="shortcut icon" href="#">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Madalin</title>
-  <link rel="shortcut icon" href="#">
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="index.css" />
+    
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> -->
 
-  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
 
-  <!-- Add Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
-  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> -->
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDIrh1zkGtxHdAoVP0Mlelt5aIzzxUxlbg",
+        authDomain: "tracking-tradings-727aa.firebaseapp.com",
+        projectId: "tracking-tradings-727aa",
+        storageBucket: "tracking-tradings-727aa.firebasestorage.app",
+        messagingSenderId: "747058800250",
+        appId: "1:747058800250:web:e4eec0ce768a7166ca7dc3",
+        measurementId: "G-J3QBWDSNQ5"
+        };
 
-  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+      var storage = firebase.storage();
+    </script>
+  </head>
+  <body>
+    <h1>Madalinul este cel mai tare</h1>
 
-  <script>
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDIrh1zkGtxHdAoVP0Mlelt5aIzzxUxlbg",
-      authDomain: "tracking-tradings-727aa.firebaseapp.com",
-      projectId: "tracking-tradings-727aa",
-      storageBucket: "tracking-tradings-727aa.firebasestorage.app",
-      messagingSenderId: "747058800250",
-      appId: "1:747058800250:web:e4eec0ce768a7166ca7dc3",
-      measurementId: "G-J3QBWDSNQ5"
-    };
+    <nav id ="navbar">
+      <ul>
+        <li><a id="home-btn" href="#">HOME</a></li>
+        <li><a id="portfolio-btn" href="#">Portfolio</a></li>
+        <li><button id="charts-btn">Charts</button></li>        
+        <li><a id="news-btn" href="#">News</a></li>
+        <li><a id="wallet-btn" href="#">Wallet</a></li>
+        <li><a id="settings-btn" href="#">Settings</a></li>
+      </ul>
+    </nav>
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
-    var storage = firebase.storage();
-  </script>
-</head>
-
-<body>
-  <h1>Madalinul este cel mai tare</h1>
-
-  <nav id="navbar">
-    <ul>
-      <li><a id="home-btn" href="#">HOME</a></li>
-      <li><a id="portfolio-btn" href="#">Portfolio</a></li>
-      <li><a id="charts-btn" href="#">Charts</a></li>
-      <li><a id="news-btn" href="#">News</a></li>
-      <li><a id="wallet-btn" href="#">Wallet</a></li>
-      <li><a id="settings-btn" href="#">Settings</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main layout with 3 columns -->
-  <div id="main-layout">
-    <!-- Left Column (Watchlist) -->
-    <div id="left-column">
-      <!-- Watchlist Container -->
-      <div id="watchlist-container">
-        <div id="watchlist-header">
-          <span>Watchlist</span>
-          <button id="toggle-watchlist">⬇️</button>
-        </div>
-        <ul id="watchlist">
-          <!-- <li>
+    <!-- Main layout with 3 columns -->
+    <div id="main-layout">
+       <!-- Left Column (Watchlist) -->
+       <div id="left-column">
+          <!-- Watchlist Container -->
+          <div id="watchlist-container">
+            <div id="watchlist-header">
+              <span>Watchlist</span>
+              <button id="toggle-watchlist">⬇️</button>
+            </div>
+            <ul id="watchlist">
+              <!-- <li>
                 <span class="stock-symbol">MSFT</span> -
                 <span class="stock-price">?</span>
               </li>
@@ -71,37 +73,55 @@
                 <span class="stock-symbol">TSLA</span> -
                 <span class="stock-price">?</span>
               </li> -->
-        </ul>
-        <!-- Add Stock Section -->
-        <div id="add-stock">
-          <input type="text" id="stock-input" placeholder="Enter Stock Symbol" />
-          <button id="add-stock-button">+</button>
+            </ul>
+            <!-- Add Stock Section -->
+            <div id="add-stock">
+              <input
+                type="text"
+                id="stock-input"
+                placeholder="Enter Stock Symbol"
+                
+                />
+              <button id="add-stock-button">+</button>
+            </div>
+          </div>
+       </div>
+
+       <!-- Center Column (Main Content) -->
+      <div id="center-column">
+        <div id="portfolio-container">
+          <h2>Portfolio / Main Content</h2>
+          <p>Statistics, charts, or widgets go here.</p>
+        </div>
+
+        <div id="news-container"></div>
+
+        <div id="range-selector" style="margin-bottom: 15px;">
+            <label for="chart-range">Select range: </label>
+            <select id="chart-range">
+                <option value="1d">1D</option>
+                <option value="5d">5D</option>
+                <option value="1mo">1M</option>
+                <option value="6mo">6M</option>
+                <option value="1y">1Y</option>
+                <option value="1wk" selected>1W</option>
+            </select>
+        </div>
+        <div id="charts-container" style="width: 100%; height: auto;">
+          <h2>Charts Here</h2>
         </div>
       </div>
-    </div>
 
-    <!-- Center Column (Main Content) -->
-    <div id="center-column">
-      <div id="portfolio-container">
-        <h2>Main Content Here</h2>
-        <p>This section will hold the main trading graphs, statistics, or any additional widgets.</p>
-        <div id="news-container"></div>
-      </div>
-      <div id="charts-container" style="width: 100%; height: auto;">
-        <h2>Charts Here</h2>
-      </div>
+       <!-- Right Column (Extra Space / Future Features) -->
+       <div id="right-column">
+        <h2>Right Sidebar</h2>
+        <p>This space can be used for news, widgets, or anything else.</p>
+       </div>
     </div>
+    <script src="watchlist.js"></script>
+    <script src="charts.js"></script>
+    <script src="portfolio.js"></script>
+    <script src="index.js"></script>
+    <script src="navbar.js"></script>
 
-    <!-- Right Column (Extra Space / Future Features) -->
-    <div id="right-column">
-      <h2>Right Sidebar</h2>
-      <p>This space can be used for news, widgets, or anything else.</p>
-    </div>
-  </div>
-  <script src="watchlist.js"></script>
-  <script src="portfolio.js"></script>
-  <script src="index.js"></script>
-  <script src="charts.js"></script>
-  <script src="navbar.js"></script>
-
-</body>
+  </body>
